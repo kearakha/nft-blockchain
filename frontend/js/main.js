@@ -73,20 +73,20 @@ async function refreshNFTs() {
     return;
   }
 
-  const list = document.getElementById("nftList");
-  list.innerHTML = "";
+  const grid = document.getElementById("nftGrid");
+  grid.innerHTML = ""; // clear existing cards
 
   let countBN = await contract.tokenCount();
   const total = Number(countBN);
 
   if (total === 0) {
-    list.innerHTML = "<li>Belum ada NFT</li>";
+    grid.innerHTML = "<p style='color:#64748b;'>Belum ada NFT.</p>";
     return;
   }
 
   for (let id = 1; id <= total; id++) {
+    // cek token exist
     try {
-      // Cek token exist
       await contract.callStatic.ownerOf(id);
     } catch {
       continue;
@@ -96,34 +96,36 @@ async function refreshNFTs() {
     const rawURI = await contract.tokenURI(id);
     const metadataURL = ipfsToHttp(rawURI);
 
-    // --- Fetch metadata JSON ---
     let metadata;
     try {
       const res = await fetch(metadataURL);
       metadata = await res.json();
     } catch (err) {
-      console.error("Gagal fetch metadata:", metadataURL);
+      console.error("Gagal ambil metadata:", metadataURL);
       continue;
     }
 
-    // --- Ambil image ---
+    // image conversion
     const imageURL = ipfsToHttp(metadata.image);
 
-    // --- Render ke UI ---
-    const item = document.createElement("li");
-    item.style.marginBottom = "14px";
-    item.innerHTML = `
-      <div style="border:1px solid #ddd;padding:10px;border-radius:8px;">
-        <strong>#${id}</strong><br>
-        Owner: ${owner}<br>
-        URI: ${metadataURL}<br><br>
-        <img src="${imageURL}" style="max-width:200px;border-radius:8px;" />
+    // create card
+    const card = document.createElement("div");
+    card.className = "nft-card";
+
+    card.innerHTML = `
+      <img src="${imageURL}" alt="NFT Image" onerror="this.src='https://via.placeholder.com/200?text=No+Image';">
+
+      <div class="nft-card-content">
+        <div class="nft-card-title">${metadata.name || "Untitled NFT"}</div>
+        <div class="nft-card-desc">${metadata.description || ""}</div>
+        <div class="nft-card-uri">URI:<br>${metadataURL}</div>
       </div>
     `;
 
-    list.appendChild(item);
+    grid.appendChild(card);
   }
 }
+
 
 document.getElementById("refreshButton").addEventListener("click", refreshNFTs);
 
