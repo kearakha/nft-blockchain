@@ -1,0 +1,9 @@
+(await ethers.provider.getBlock(1))       // melihat blok ke-1
+(await ethers.provider.getBlockNumber())
+exit
+console.log(uri);
+const uri = await nft.tokenURI(1);   // ambil tokenURI tokenId = 1
+const nft = await ethers.getContractAt("SimpleNFT", "0x5FbDB2315678afecb367f032d93F642f64180aa3");
+console.log(uri);
+const uri = await nft.tokenURI(1);
+const nft = await ethers.getContractAt("SimpleNFT", "0x5FbDB2315678afecb367f032d93F642f64180aa3");

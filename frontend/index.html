@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mint Your NFT</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ethers.js -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <h2>⚡ NFT Minting DApp</h2>
+    <button id="connectButton" class="btn-primary">Connect Wallet</button>
+  </header>
+
+  <main class="container">
+
+    <!-- Wallet Box -->
+    <div class="card">
+      <h3>🔐 Wallet Status</h3>
+      <p id="status" class="muted">Not connected</p>
+      <p><strong>Address:</strong> <span id="account">–</span></p>
+    </div>
+
+    <!-- Mint NFT -->
+    <div class="card">
+      <h3>🎨 Mint New NFT</h3>
+      <input id="tokenURI" placeholder="Enter Token URI (IPFS or link)" />
+      <button id="mintButton" class="btn-primary">Mint NFT</button>
+      <p id="mintResult" class="muted"></p>
+    </div>
+
+    <!-- NFT List -->
+    <div class="card">
+      <h3>📦 Your NFTs</h3>
+      <button id="refreshButton" class="btn-secondary">Refresh</button>
+      <ul id="nftList"></ul>
+    </div>
+
+  </main>
+
+  <footer>
+    <p class="muted">Powered by ethers.js — Your Simple NFT Minting DApp</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "simple-nft-dapp",
+  "version": "1.0.0",
+  "description": "Simple NFT dApp (Hardhat + ERC721 + minimal frontend)",
+  "scripts": {
+    "compile": "hardhat compile",
+    "node": "hardhat node",
+    "deploy": "hardhat run scripts/deploy.js --network localhost",
+    "start": "live-server frontend --port=5500 --host=0.0.0.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
+    "hardhat": "^2.18.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.9.0",
+    "ethers": "^6.6.0"
+  }
+}
