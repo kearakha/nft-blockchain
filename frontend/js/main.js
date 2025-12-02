@@ -3,7 +3,7 @@ console.log("MAIN.JS LOADED v2");
 let provider;
 let signer;
 
-const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const CONTRACT_ADDRESS = "0xC43baA8baE42DdCb33Bf7060f6587086e91539b4";
 
 const ABI = [
   "function mint(string memory _tokenURI) public returns (uint256)",
