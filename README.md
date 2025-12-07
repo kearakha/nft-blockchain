@@ -1,104 +1,258 @@
-Simple NFT DApp (Blockchain Localhost)
+# 🎨 Simple NFT DApp — Hardhat, BNPI, DChain
 
-Aplikasi web sederhana untuk pengelolaan aset digital (NFT) menggunakan blockchain lokal (Hardhat) dan frontend berbasis ethers.js.
-Aplikasi ini mendemonstrasikan proses minting NFT, pembuktian kepemilikan, serta interaksi antara smart contract dan dompet digital (MetaMask).
+Aplikasi web sederhana untuk minting dan menampilkan NFT menggunakan:
 
-⚙️ Fitur Utama:
-🔗 Blockchain lokal via Hardhat (localhost:8545)
-🧱 Smart Contract ERC-721 sederhana (NFT)
-💼 Integrasi MetaMask
-🖋️ Mint NFT baru dengan memasukkan URL metadata (IPFS)
-💰 Royalti & kepemilikan transparan
+* 🧱 Blockchain lokal Hardhat
+* 🌐 BNPI Network (UGM Private Chain)
+* 🔵 DChain Mainnet
 
-📦 Persiapan Awal (Untuk Windows, mungkin akan berbeda jika pakai Linux)
-1️⃣ Install Dependencies
-Pastikan Node.js dan npm sudah terpasang.
-Lalu jalankan: 
-   npm install
-Jika muncul warning seperti inflight@1.0.6 bisa diabaikan.
+DApp ini menunjukkan alur lengkap:
 
-2️⃣ Jalankan Node Blockchain Lokal (Hardhat)
-Buka terminal dan jalankan: 
-   npx hardhat node
-Tunggu sampai muncul:
-   Started HTTP and WebSocket JSON-RPC server at http://127.0.0.1:8545/
-   Accounts:
-   0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 (10000 ETH)
-   ...
-   Chain ID: 31337
-🟢 Biarkan terminal ini tetap terbuka — ini adalah blockchain lokal kamu.
+* Deploy smart contract ERC-721
+* Interaksi frontend + MetaMask
+* Integrasi metadata NFT via IPFS
+* Preview gambar NFT di browser
 
-3️⃣ Deploy Kontrak NFT
-Buka terminal baru (biarkan node tetap aktif) dan jalankan:
-   npx hardhat run scripts/deploy.js --network localhost
-Output contoh:
-   Deploying SimpleNFT...
-   SimpleNFT deployed to: 0x5FbDB2315678afecb367f032d93F642f64180aa3
-Salin alamat kontrak (0x5FbDB...) dan masukkan ke file frontend/js/app.js:
-   const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+---
 
-🦊 Hubungkan MetaMask dengan Hardhat
-4️⃣ Tambahkan Jaringan Baru
-Buka MetaMask → Settings → Networks → Add Network Manually, isi seperti ini:
-   Network Name = Hardhat Localhost
-   New RPC URL	= http://127.0.0.1:8545
-   Chain ID = 31337
-   Currency Symbol = ETH
-   Block Explorer URL = (kosongkan)
-Klik Save dan pilih jaringan ini.
+# 📥 Clone Repository
 
-5️⃣ Impor Akun dari Hardhat
-Setelah node aktif, Hardhat menampilkan daftar akun + private key.
-Copy salah satu private key dan import ke MetaMask:
-1. Klik profil di MetaMask → Import Account
-2. Paste private key dari Hardhat, misalnya:
-   0x59c6995e998f97a5a004497e5da... (tanpa tanda kutip)
-3. Setelah itu akun kamu akan otomatis memiliki 10000 ETH (lokal) 💰
+```
+git clone https://github.com/kearakha/nft-blockchain
+cd nft-blockchain
+```
 
-🌐 Jalankan Aplikasi Web
-Masuk ke folder frontend:
-   cd frontend
-Install live-server (jika belum):
-   npm install -g live-server
-Jalankan:
-   npm start
-Buka browser ke:
-   http://localhost:3000
+---
 
-🖋️ Proses Mint NFT
-1. Klik “Connect Wallet”
-→ izinkan MetaMask untuk menghubungkan dompet ke localhost:3000
-2. Klik “Mint NFT”
-→ masukkan URL metadata NFT (misalnya dari IPFS):
-   https://ipfs.io/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco
-3. Tunggu transaksi selesai, lalu lihat pesan sukses seperti:
-   ✅ NFT berhasil dimint!
+# 📦 Fitur Utama
 
-🔍 Verifikasi Blockchain
-Kamu bisa melihat semua transaksi yang terjadi di terminal Hardhat Node, termasuk minting dan transfer NFT.
-Ketika kamu menjalankan:
-   npx hardhat node
-Hardhat otomatis menjalankan JSON-RPC server lokal (localhost:8545) dan menampilkan semua transaksi yang lewat jaringan itu.
+* 🔗 Blockchain lokal Hardhat (127.0.0.1:8545)
+* 🧱 Smart Contract NFT (ERC-721)
+* 🦊 Integrasi MetaMask
+* 📤 Upload metadata NFT via IPFS (Pinata)
+* 🖼️ Preview gambar NFT (auto-fetch metadata)
+* 🌍 Multi-network: Localhost, BNPI, DChain
 
-Contoh: ketika kamu menjalankan perintah mint dari frontend (Mint NFT), kamu akan melihat log seperti ini di terminal tempat node dijalankan:
-   eth_sendRawTransaction
-      Transaction: 0x2ca18912feb4ff6c0551abac32ff4047a14c9671ae0bfd07f5a423b9a9bd417a
-      From:        0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
-      To:          0x5fbdb2315678afecb367f032d93f642f64180aa3
-      Value:       0 ETH
-      Gas used:    25220 of 25220
-      Block #1:    0x8c3e411dbbaaf5139c3ab0fb70692e6466cef98e067abc6561120af21b2f1806
-👉 Ini menunjukkan bahwa kontrak NFT kamu berinteraksi di blockchain lokal.
-Setiap eth_sendRawTransaction adalah satu transaksi baru di jaringan.
+---
 
-🧠 Penjelasan Singkat
-Apa itu Blockchain?
-Blockchain adalah database terdesentralisasi yang menyimpan catatan transaksi di banyak komputer.
-Tidak bisa diubah, transparan, dan diverifikasi oleh siapa pun.
+# 🧰 Tech Stack
 
-Apa itu Minting?
-“Minting” berarti mencetak NFT baru ke dalam blockchain.
-Setiap NFT yang di-mint memiliki:
-- Alamat kontrak (contract address)
-- ID unik (tokenId)
-- Metadata (tokenURI yang mengarah ke IPFS)
+| Layer          | Teknologi             |
+| -------------- | --------------------- |
+| Smart Contract | Solidity, Hardhat     |
+| Frontend       | HTML, CSS, JavaScript |
+| Web3 Library   | ethers.js v5          |
+| NFT Storage    | IPFS (Pinata)         |
+| Wallet         | MetaMask              |
+| Networks       | Hardhat, BNPI, DChain |
+
+---
+
+# 🟢 1. Menjalankan di Blockchain Lokal (Hardhat)
+
+## 🔥 Jalankan Node Hardhat
+
+```
+npx hardhat node
+```
+
+Hardhat akan menampilkan daftar akun, private key, dan chain ID 31337.
+Biarkan terminal ini tetap berjalan.
+
+---
+
+## 🚀 Deploy Smart Contract ke Localhost
+
+```
+npx hardhat run scripts/deploy.js --network localhost
+```
+
+Contoh output:
+
+```
+SimpleNFT deployed to: 0x5FbDB2...
+```
+
+Masukkan contract address ke frontend:
+
+```js
+const CONTRACT_ADDRESS = "0x5FbDB2...";
+```
+
+---
+
+## 🦊 Tambahkan Hardhat Network ke MetaMask
+
+| Field           | Value                                          |
+| --------------- | ---------------------------------------------- |
+| Network Name    | Hardhat Localhost                              |
+| RPC URL         | [http://127.0.0.1:8545](http://127.0.0.1:8545) |
+| Chain ID        | 31337                                          |
+| Currency Symbol | ETH                                            |
+
+Import salah satu private key dari Hardhat ke MetaMask.
+
+---
+
+## 🌐 Jalankan Frontend
+
+```
+cd frontend
+npm install -g live-server
+npm start
+```
+
+Buka browser: [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🖋️ Mint NFT
+
+1. Klik **Connect Wallet**
+2. Masukkan TokenURI metadata JSON (IPFS)
+3. Klik **Mint NFT**
+4. NFT muncul beserta gambar yang dibaca dari metadata
+
+---
+
+# 🌍 2. Deploy ke BNPI Network (UGM Private Chain)
+
+BNPI adalah jaringan blockchain private UGM yang digunakan untuk testing.
+
+---
+
+## ⚙️ Konfigurasi Hardhat untuk BNPI
+
+Tambahkan ke `hardhat.config.js`:
+
+```js
+bnpi: {
+  url: "http://10.6.6.11:6102",
+  chainId: 110261,
+  accounts: ["PRIVATE_KEY_BNPI"]
+}
+```
+
+---
+
+## 🦊 Tambahkan Network BNPI ke MetaMask
+
+| Field        | Value                                          |
+| ------------ | ---------------------------------------------- |
+| Network Name | BNPI Network                                   |
+| RPC URL      | [http://10.6.6.11:6102](http://10.6.6.11:6102) |
+| Chain ID     | 110261                                         |
+| Symbol       | BPN                                            |
+
+BNPI Faucet:
+
+```
+http://10.6.6.11:5000/claim
+```
+
+---
+
+## 🚀 Deploy Kontrak ke BNPI
+
+```
+npx hardhat run scripts/deploy.js --network bnpi
+```
+
+Output:
+
+```
+SimpleNFT deployed to: 0xABC123...
+```
+
+Masukkan ke `main.js`:
+
+```js
+const CONTRACT_ADDRESS = "0xABC123...";
+```
+
+---
+
+# 🔵 3. Deploy ke DChain Mainnet (Final Deployment)
+
+DChain adalah mainnet publik yang digunakan untuk deployment final.
+
+---
+
+## ⚙️ Konfigurasi Hardhat untuk DChain
+
+Tambahkan:
+
+```js
+dchain: {
+  url: "https://mainnet.dchain.id",
+  chainId: 17845,
+  accounts: ["PRIVATE_KEY_DCHAIN"]
+}
+```
+
+---
+
+## 🦊 Tambahkan DChain ke MetaMask
+
+| Field        | Value                                                  |
+| ------------ | ------------------------------------------------------ |
+| Network Name | DChain Mainnet                                         |
+| RPC URL      | [https://mainnet.dchain.id](https://mainnet.dchain.id) |
+| Chain ID     | 17845                                                  |
+| Symbol       | DCH                                                    |
+
+---
+
+## 🚀 Deploy Kontrak ke DChain
+
+```
+npx hardhat run scripts/deploy.js --network dchain
+```
+
+Contoh output:
+
+```
+SimpleNFT deployed to: 0xC43baA...
+```
+
+Masukkan ke frontend:
+
+```js
+const CONTRACT_ADDRESS = "0xC43baA...";
+```
+
+Address akan **selalu berbeda setiap deploy**, jadi gunakan address final untuk presentasi.
+
+---
+
+# 🖼️ Preview NFT dari Metadata (IPFS)
+
+Frontend melakukan:
+
+1. `tokenURI(tokenId)` → ambil metadata JSON
+2. Fetch JSON dari IPFS gateway
+3. Ambil field `image`
+4. Convert `ipfs://` → gateway HTTP
+5. Render gambar + nama + deskripsi dalam card NFT
+
+---
+
+# 🏁 Kesimpulan
+
+DApp ini mendukung:
+
+* ✔ Localhost Hardhat (development)
+* ✔ BNPI Network (testing)
+* ✔ DChain Mainnet (final deployment)
+
+Fitur utama:
+
+* mint NFT
+* upload metadata IPFS
+* preview gambar NFT
+* multi-network support
+
+Aplikasi ini siap digunakan untuk demonstrasi dan laporan tugas blockchain.
+
+```
+```
